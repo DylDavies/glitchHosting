@@ -1,0 +1,20 @@
+```asciidoc
+= Commands =
+
+[.8ball - **USAGE** .8ball <your question goes here>]
+[.help - **USAGE** .help]
+[.mute - **USAGE** .mute @user]
+[.unmute - **USAGE** .unmute @user]
+[.pfp - **USAGE** .pfp]
+[.ping - **USAGE** .ping]
+[.playRandom (case sensitive) - **USAGE** .playRandom]
+[.report - **USAGE** .report @user <reason>]
+[.suggest - **USAGE** .suggest <what you want to suggest goes here>]
+[.userinfo - **USAGE** .userinfo]
+[.ban - **USAGE** .ban @user]
+[.kick - **USAGE** .kick @user]
+[.poll - **USAGE** .kick {channel that the poll is being held in **without** the #} question1 before the => | <= question2 after that!]
+[.purge (you need the manage messages permission!) - **USAGE** .purge <no. of messages to purge>]
+[.setPrefix (Being fixed)= **USAGE** .setPrefix <prefix>]```
+
+Use this link to invite me to your server! https://discordapp.com/api/oauth2/authorize?client_id=419164281536249866&permissions=8&scope=bot%27

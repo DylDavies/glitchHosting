@@ -15,6 +15,21 @@
 [.kick - **USAGE** .kick @user]
 [.poll - **USAGE** .kick {channel that the poll is being held in **without** the #} question1 before the => | <= question2 after that!]
 [.purge (you need the manage messages permission!) - **USAGE** .purge <no. of messages to purge>]
-[.setPrefix (Being fixed)= **USAGE** .setPrefix <prefix>]```
+[.settings - **USAGE** .settings]
+[.review - **USAGE** .review @user <message> --# (# = 1-5)]
+[.reviews - **USAGE** .review @user]
 
-Use this link to invite me to your server! https://discordapp.com/api/oauth2/authorize?client_id=419164281536249866&permissions=8&scope=bot%27
+= Custom Server Stuff(More to be added!)
+
+[.setPrefix = **USAGE** .setPrefix <prefix>]
+[.setAutoRole - **USAGE** .setAutoRole <rolename>]
+
+= Custom Welcome Messages = 
+
+[.config - **USAGE** .config]
+[.setWelcome - **USAGE** .setWelcome <Your desired message here>]
+[.setDM - **USAGE** .setDM <Your desired message here>]
+[.setLeave - **USAGE** .setLeave <Your desired message here>]
+[.setChannel - **USAGE** .setChannel #channel]```
+
+Use this link to invite me to your server! https://discordapp.com/api/oauth2/authorize?client_id=419164281536249866&permissions=8&scope=bot

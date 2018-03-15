@@ -6,8 +6,9 @@ exports.run = async (bot, message, args) => {
     let string = text.slice(1).join(` `);
     console.log(`STRING === ${string}\nARGS === ${args.join(" ")}`);
 
-    if(!message.member.hasPermission("ADMINISTRATOR")) return message.channel.send('You require a role with the perms=issions \`Administrator\`');
-    if(!args.join(" ")) return message.channel.send(`Please enter a prefix!\n.changePrefix <prefix>`);
+    if(!message.member.hasPermission("ADMINISTRATOR")) return message.channel.send('You require a role with the permsissions \`Administrator\`').then(() => {
+        message.react(`⛔`);
+    });if(!args.join(" ")) return message.channel.send(`Please enter a prefix!\n.changePrefix <prefix>`);
 
     db.updateText(`guildPrefix_${message.guild.id}`, args.join().trim()).then(i => {
         message.channel.send(`Prefix Changed to: ` + i.text);

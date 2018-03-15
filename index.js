@@ -20,6 +20,7 @@ const bot = new Discord.Client();
 
 const config = require('./config.json');
 require("./util/eventLoader")(bot);
+const tools = require("./functions.js");
 
 bot.commands = new Discord.Collection();
 
@@ -56,6 +57,50 @@ var reload = (message, text) => {
     ).catch(error => console.log(error.stack));
   };
   exports.reload = reload;
+
+bot.on("guildMemberAdd", member => {
+  db.fetchObject(`autoRole_${member.guild.id}`).then(a => {
+
+    if(!a.text) console.log(`ERROR: AUTOROLE no role set`)
+    else {
+      try {
+        member.addRole(member.guild.roles.find(`name`, a.text));
+      } catch (e) {
+        console.log(e)
+      }
+    }  
+
+  db.fetchObject(`messageChannel_${member.guild.id}`).then(i => {
+
+    db.fetchObject(`joinMessageDM_${member.guild.id}`).then(o => {
+
+
+        if(!o.text) console.log(`ERROR: JOINDM no message set`)
+        else tools.embed(member, o.text.replace('{user}', member).replace('{members}', member.guild.memberCount));
+
+        if(!member.guild.channels.get(i.text)) return console.log(`ERROR: CHANNEL no channel found!`)
+
+        db.fetchObject(`joinMessage_${member.guild.id}`).then(p => {
+          
+          tools.embed(member.guild.channels.get(i.text), p.text.replace('{user}', member).replace('{members}', member.guild.memberCount));
+        })
+    })
+   })
+})
+
+bot.on("guildMemberRemove", member => {
+  db.fetchObject(`messageChannel_${member.guild.id}`).then(i => {
+
+    if(!member.guild.channels.get(i.text)) return console.log(`ERROR: CHANNEL no channel found!`)
+
+    db.fetchObject(`leaveMessage_${member.guild.id}`).then(o => {
+
+      if(!i.text) console.log(`ERROR: WELCOME TEXT no welcome text found!`)
+      else tools.embed(member.guild.channels.get(i.text), o.text.replace('{user}', member).replace('{members}', member.guild.memberCount))
+    })
+  })
+})
+})
 
 bot.on("message", async message => {
     if(message.author.bot) return;
@@ -124,11 +169,15 @@ bot.on("message", async message => {
     } else {
       prefix = `.`;
     }
+    
+    if(command === `prefix`.toLowerCase()){
+      tools.embed(message.channel, `This server's prefix is : ***${prefix}***`)
+    }
 
   if(!command.startsWith(prefix)) return;
 
   let cmd = bot.commands.get(command.slice(prefix.length));
-  if(cmd) cmd.run(bot, message, args);
+  if(cmd) cmd.run(bot, message, args, tools);
 
   if(command === prefix + `help`){
     let sentembed = new Discord.RichEmbed()
@@ -144,4 +193,4 @@ bot.on("message", async message => {
 });
   });
 
-bot.login(config.token);
+bot.login(process.env.TOKEN);
